@@ -2,13 +2,19 @@
 
 D2J=./das2json/mac/das2json
 
+all: app1 app2
+
 app1: app1.drawio py0d.py
-	${D2J} app1.drawio
-	python3 main1.py . 0D/python "Hello World" main app1.drawio.json
+	@echo
+	@echo "Application 1"
+	@${D2J} app1.drawio
+	@python3 main.py . 0D/python "" main app1.drawio.json
 
 app2: app2.drawio py0d.py
-	${D2J} app2.drawio
-	python3 main2.py . 0D/python "Hello World" main app2.drawio.json
+	@echo
+	@echo "Application 2"
+	@${D2J} app2.drawio
+	@python3 main.py . 0D/python "" main app2.drawio.json
 
 ## house-keeping
 
