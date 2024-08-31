@@ -17,6 +17,13 @@ def start_function (root_project, root_0D, arg, main_container):
     zd.inject (main_container, msg)
 
 def components_to_include_in_project (root_project, root_0D, reg):
+    # due to the simplicity of this example, I've put all 3 components into this file
+    # App1 ignores "Unit C"
+    # App2 ignores "Unit B"
+    # both apps use "Unit A" - which outputs a value (42) without needing to know what the actual receivers are
+    # "Unit A" is used - without modification - in both apps
+    # in larger projects, one would include only the Leaf code that is needed for a project
+    # (or use something like m4 to include Leaf code blocks)
     zd.register_component (reg, zd.Template ("Unit A", None, unitA))
     zd.register_component (reg, zd.Template ("Unit B", None, unitB))
     zd.register_component (reg, zd.Template ("Unit C", None, unitC))
@@ -31,12 +38,12 @@ def unitB (reg, owner, name, template_data):
     name_with_id = zd.gensym ("?")
     return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitB_handler)
 def unitB_handler (eh, msg):
-    print (f"unit B got {msg.datum.srepr ()} on port {msg.port}")
+    print (f"B got {msg.datum.srepr ()} on port {msg.port}")
 
 def unitC (reg, owner, name, template_data):      
     name_with_id = zd.gensym ("?")
     return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitC_handler)
 def unitC_handler (eh, msg):
-    print (f"unit C got {msg.datum.srepr ()} on port {msg.port}")
+    print (f"C got {msg.datum.srepr ()} on port {msg.port}")
 
 main ()
