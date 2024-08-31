@@ -8,19 +8,7 @@ class Queue:
     def dequeue (self):
         return self.q.pop ()
 
-def leaf_handler (component):
-    # handle one input message (if any)
-    if not component.inq.empty ():
-        msg = component.inq.dequeue ()
-        component.handler (msg)
-
-def container_handler (component):
-    # handle one input message (if any), only if all children are quiescent
-    if not component.inq.empty () and not component.any_child_busy ():
-        msg = component.inq.dequeue ()
-        component.handler (msg)
-
-class A:
+class unitA:
     def __init__ (self):
         self.outq = Queue ()
     def run (self):
@@ -28,7 +16,7 @@ class A:
     def send (self, id, val):
         self.outq.append ({"port" : id, "data": val})
 
-class B:
+class unitB:
     def __init__ (self):
         self.inq = []
     def subr_f (self, n):
@@ -36,7 +24,7 @@ class B:
     def handler (self, message):
         self.subr_f (message ["data"])
         
-class C:
+class unitC:
     def __init__ (self):
         self.inq = []
     def subr_g (self, n):
@@ -47,21 +35,21 @@ class C:
 def remapMessage (message, destinationPort):
     return { "port": destinationPort, "data": message ["data"] }
 
-class Project1:
+class App1:
     def __init__ (self):
-        cA = A ()
-        cB = B ()
-        cA.run ()
-        msg = remapMessage (cA.outq.dequeue (), "f")
-        cB.handler (msg)
+        A = unitA ()
+        B = unitB ()
+        A.run ()
+        msg = remapMessage (A.outq.dequeue (), "f")
+        B.handler (msg)
     
-class Project2:
+class App2:
     def __init__ (self):
-        cA = A ()
-        cC = C ()
-        cA.run ()
-        msg = remapMessage (cA.outq.dequeue (), "g")
-        cC.handler (msg)
+        A = unitA ()
+        C = unitC ()
+        A.run ()
+        msg = remapMessage (A.outq.dequeue (), "g")
+        C.handler (msg)
     
-Project1 ()
-Project2 ()
+App1 ()
+App2 ()
