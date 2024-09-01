@@ -17,16 +17,8 @@ def start_function (root_project, root_0D, arg, main_container):
     zd.inject (main_container, msg)
 
 def components_to_include_in_project (root_project, root_0D, reg):
-    # due to the simplicity of this example, I've put all 3 components into this file
-    # App1 ignores "Unit C"
-    # App2 ignores "Unit B"
-    # both apps use "Unit A" - which outputs a value (42) without needing to know what the actual receivers are
-    # "Unit A" is used - without modification - in both apps
-    # in larger projects, one would include only the Leaf code that is needed for a project
-    # (or use something like m4 to include Leaf code blocks)
-    import unitA, unitB, unitC
+    import unitA, unitC
     unitA.install (reg)
-    unitB.install (reg)
     unitC.install (reg)
 
 main ()

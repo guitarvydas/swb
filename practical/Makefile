@@ -8,13 +8,13 @@ app1: app1.drawio py0d.py
 	@echo
 	@echo "Application 1"
 	@${D2J} app1.drawio
-	@python3 main.py . 0D/python "" main app1.drawio.json
+	@python3 main1.py . 0D/python "" main app1.drawio.json
 
 app2: app2.drawio py0d.py
 	@echo
 	@echo "Application 2"
 	@${D2J} app2.drawio
-	@python3 main.py . 0D/python "" main app2.drawio.json
+	@python3 main2.py . 0D/python "" main app2.drawio.json
 
 ## house-keeping
 
