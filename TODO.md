@@ -1,1 +1,1 @@
-- use m4 for app1 and app2
+- revamp 0D with new py0d.py
