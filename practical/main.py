@@ -24,23 +24,29 @@ def components_to_include_in_project (root_project, root_0D, reg):
     # "Unit A" is used - without modification - in both apps
     # in larger projects, one would include only the Leaf code that is needed for a project
     # (or use something like m4 to include Leaf code blocks)
-    zd.register_component (reg, zd.Template ("Unit A", None, unitA))
-    zd.register_component (reg, zd.Template ("Unit B", None, unitB))
-    zd.register_component (reg, zd.Template ("Unit C", None, unitC))
+    unitA (reg)
+    unitB (reg)
+    unitC (reg)
 
-def unitA (reg, owner, name, template_data):      
+def unitA (reg):
+    zd.register_component (reg, zd.Template ("Unit A", None, unitA_instantiator))
+def unitA_instantiator (reg, owner, name, template_data):      
     name_with_id = zd.gensym ("?")
     return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitA_handler)
 def unitA_handler (eh, msg):
     zd.send (eh, "f", zd.new_datum_int (42), msg)
 
-def unitB (reg, owner, name, template_data):      
+def unitB (reg):
+    zd.register_component (reg, zd.Template ("Unit B", None, unitB_instantiator))
+def unitB_instantiator (reg, owner, name, template_data):      
     name_with_id = zd.gensym ("?")
     return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitB_handler)
 def unitB_handler (eh, msg):
     print (f"B got {msg.datum.srepr ()} on port {msg.port}")
 
-def unitC (reg, owner, name, template_data):      
+def unitC (reg):
+    zd.register_component (reg, zd.Template ("Unit C", None, unitC_instantiator))
+def unitC_instantiator (reg, owner, name, template_data):      
     name_with_id = zd.gensym ("?")
     return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitC_handler)
 def unitC_handler (eh, msg):

@@ -1,0 +1,7 @@
+    zd.register_component (reg, zd.Template ("Unit A", None, unitA))
+def unitA (reg, owner, name, template_data):      
+    name_with_id = zd.gensym ("?")
+    return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitA_handler)
+def unitA_handler (eh, msg):
+    zd.send (eh, "f", zd.new_datum_int (42), msg)
+
