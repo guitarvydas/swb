@@ -24,32 +24,32 @@ def components_to_include_in_project (root_project, root_0D, reg):
     # "Unit A" is used - without modification - in both apps
     # in larger projects, one would include only the Leaf code that is needed for a project
     # (or use something like m4 to include Leaf code blocks)
-    install_unitA (reg)
-    install_unitB (reg)
-    install_unitC (reg)
+    install_leaf_unitA (reg)
+    install_leaf_unitB (reg)
+    install_leaf_unitC (reg)
 
-def install_unitA (reg):
-    def unitA_instantiator (reg, owner, name, template_data):      
+def install_leaf_unitA (reg):
+    def instantiator (reg, owner, name, template_data):      
         name_with_id = zd.gensym ("?")
-        return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitA_handler)
-    def unitA_handler (eh, msg):
+        return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=handler)
+    def handler (eh, msg):
         zd.send (eh, "f", zd.new_datum_int (42), msg)
-    zd.register_component (reg, zd.Template ("Unit A", None, unitA_instantiator))
+    zd.register_component (reg, zd.Template ("Unit A", None, instantiator))
 
-def install_unitB (reg):
-    def unitB_instantiator (reg, owner, name, template_data):      
+def install_leaf_unitB (reg):
+    def instantiator (reg, owner, name, template_data):      
         name_with_id = zd.gensym ("?")
-        return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitB_handler)
-    def unitB_handler (eh, msg):
+        return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=handler)
+    def handler (eh, msg):
         print (f"B got {msg.datum.srepr ()} on port {msg.port}")
-    zd.register_component (reg, zd.Template ("Unit B", None, unitB_instantiator))
+    zd.register_component (reg, zd.Template ("Unit B", None, instantiator))
 
-def install_unitC (reg):
-    def unitC_instantiator (reg, owner, name, template_data):      
+def install_leaf_unitC (reg):
+    def instantiator (reg, owner, name, template_data):      
         name_with_id = zd.gensym ("?")
-        return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=unitC_handler)
-    def unitC_handler (eh, msg):
+        return zd.make_leaf (name=name_with_id, owner=owner, instance_data=None, handler=handler)
+    def handler (eh, msg):
         print (f"C got {msg.datum.srepr ()} on port {msg.port}")
-    zd.register_component (reg, zd.Template ("Unit C", None, unitC_instantiator))
+    zd.register_component (reg, zd.Template ("Unit C", None, instantiator))
 
 main ()
