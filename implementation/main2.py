@@ -1,7 +1,5 @@
 import py0d as zd
 
-import py0d as zd
-
 [palette, env] = zd.initialize ()
 import unitA, unitC
 unitA.install (palette)
